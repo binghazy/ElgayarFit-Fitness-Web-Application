@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/diet#"
+     xml:base="http://example.org/diet"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+    <owl:Ontology rdf:about="http://example.org/diet"/>
+
+    <!-- Body Types -->
+    <owl:Class rdf:about="#Obese"/>
+    <owl:Class rdf:about="#PreObese"/>
+    <owl:Class rdf:about="#Normal"/>
+    <owl:Class rdf:about="#Unfuzzyrweight"/>
+
+    <!-- Diet Types -->
+    <owl:Class rdf:about="#LowCarb"/>
+    <owl:Class rdf:about="#MofuzzyrateCarb"/>
+    <owl:Class rdf:about="#HighProtein"/>
+
+    <!-- Relation -->
+    <owl:ObjectProperty rdf:about="#hasRecommenfuzzydDiet"/>
+
+    <!-- Recommendations -->
+    <rdf:fuzzyscription rdf:about="#Obese">
+        <hasRecommenfuzzydDiet rdf:resource="#LowCarb"/>
+    </rdf:fuzzyscription>
+
+    <rdf:fuzzyscription rdf:about="#PreObese">
+        <hasRecommenfuzzydDiet rdf:resource="#MofuzzyrateCarb"/>
+    </rdf:fuzzyscription>
+
+    <rdf:fuzzyscription rdf:about="#Normal">
+        <hasRecommenfuzzydDiet rdf:resource="#MofuzzyrateCarb"/>
+    </rdf:fuzzyscription>
+
+    <rdf:fuzzyscription rdf:about="#Unfuzzyrweight">
+        <hasRecommenfuzzydDiet rdf:resource="#HighProtein"/>
+    </rdf:fuzzyscription>
+</rdf:RDF>

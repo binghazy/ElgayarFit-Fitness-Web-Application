@@ -1,0 +1,941 @@
+/* Base variables */
+:root {
+  --sidebar-width: 280px;
+  --primary: #e05151;
+  --hover-red: #c74444;
+  --bg-dark: #171717;
+  --bg-light: #262626;
+  --text-light: #e5e7eb;
+  --text-dark: #374151;
+  --border: #404040;
+  --user-message: #b44040;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  overflow: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Layout classes */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--bg-light);
+  height: 100vh;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* Profile Image styles */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.profile-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-image: url("Elgayr.jpg");
+  background-size: cover;
+  background-position: center;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+}
+
+.profile-title {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: var(--primary);
+}
+
+.sidebar-content {
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-buttons {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-button:hover {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+.sidebar-button.active {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+.sidebar-button.primary {
+  background-color: var(--primary);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.sidebar-button.primary:hover {
+  background-color: var(--hover-red);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar-footer .sidebar-button {
+  width: 100%;
+  opacity: 0.8;
+}
+
+.sidebar-footer .sidebar-button:hover {
+  opacity: 1;
+}
+
+/* Animation classes */
+.animate-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: animate-in 0.3s ease-out forwards;
+}
+
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Chat area styles */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Update message container styles */
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 70%;
+  animation: fadeIn 0.3s ease;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.message:not(.user) {
+  max-width: 60%;
+  margin-right: auto;
+}
+
+.message.user {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+/* Update avatar size and spacing */
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  object-fit: cover;
+  background-image: url("Elgayr.jpg");
+  background-size: cover;
+  background-position: center;
+  display: none;
+  margin-top: 0.25rem;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+}
+
+/* Show avatar only for assistant messages */
+.message:not(.user) .avatar {
+  display: block;
+}
+
+/* Update message content styling */
+.message-content {
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.75rem;
+  background-color: var(--bg-light);
+  max-width: fit-content;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  letter-spacing: -0.011em;
+  font-feature-settings: "ss01" 1, "ss02" 1, "ss03" 1;
+}
+
+/* Assistant message specific styles */
+.message:not(.user) .message-content {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  margin-left: 0;
+}
+
+/* Update the user message styling */
+.message.user .message-content {
+  background-color: var(--user-message);
+  color: white;
+  margin-right: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Input area styles */
+.input-container {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--bg-dark);
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--bg-light);
+  border-radius: 0.5rem;
+}
+
+.chat-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  padding: 0.5rem;
+  outline: none;
+}
+
+/* Add this new send button base style */
+.send-button {
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dark);
+  opacity: 0.5;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.375rem;
+}
+
+/* Update send button hover state */
+.send-button:not(:disabled):hover {
+  color: #c74444;
+  transform: scale(1.05);
+  opacity: 1;
+  background-color: rgba(199, 68, 68, 0.1);
+}
+
+/* Update the active state for send button when input has content */
+.input-wrapper:has(input:not(:placeholder-shown)) .send-button {
+  color: var(--primary);
+  opacity: 1;
+  padding: 0.5rem 1.5rem;
+}
+
+.input-wrapper:has(input:not(:placeholder-shown)) .send-button:hover {
+  color: #c74444;
+  background-color: rgba(199, 68, 68, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add these styles after your existing animations */
+.thinking-animation {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.thinking-animation .dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  animation: thinking 1.4s infinite;
+  opacity: 0.6;
+}
+
+.thinking-animation .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinking-animation .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes thinking {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+.chat-list {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+/* Add these styles to your theme.css file */
+.welcome-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.welcome-gif-container {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.welcome-gif {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: contain;
+  border: 2px solid var(--primary);
+  background-color: var(--bg-light);
+}
+
+.welcome-message h1 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.welcome-message p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+/* Add styles for DE component */
+.App {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.user-data label {
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.user-data input,
+.user-data select {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border);
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+.user-data button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.user-data button:hover {
+  opacity: 0.9;
+}
+
+/* Remove duplicate .weekly-plan definitions and merge properties */
+.weekly-plan {
+  display: grid;
+  gap: 2rem;
+  padding: 1rem;
+  margin-bottom: 6rem;
+}
+
+/* Remove duplicate .day-plan definitions and merge properties */
+.day-plan {
+  background: var(--bg-dark);
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  margin: 1rem 0;
+}
+
+/* Add these styles to your theme.css file */
+.de-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100vh;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.de-form {
+  flex-shrink: 0;
+  margin-bottom: 2rem;
+}
+
+/* this is the one */
+.results-container {
+  flex: 1;
+  overflow-y: auto !important;
+  padding: 1rem;
+  margin: 1rem 0 4rem 0;
+  border-radius: 8px;
+  min-height: 800px;
+  position: relative;
+  scrollbar-width: auto;
+  scrollbar-color: var(--primary) var(--bg-dark);
+  border: 1px solid var(--border); /* Keep only this border */
+  background-color: var(--bg-dark);
+}
+
+.meal-plan {
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  height: auto;
+}
+
+.macros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.macro-card {
+  background: var(--bg-dark);
+  padding: 1.2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.macro-card h3 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.macro-card p {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.plan-content {
+  margin-top: 2rem;
+}
+
+.weekly-plan {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.day-plan {
+  background: var(--bg-dark);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.meals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.meal {
+  background: var(--bg-light);
+  padding: 1rem;
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+}
+
+.meal:hover {
+  transform: translateY(-2px);
+}
+
+.meal h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.de-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.de-header h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--primary);
+  margin: 0;
+  font-weight: bold;
+}
+
+.de-header .back-button {
+  position: absolute;
+  left: 1rem;
+}
+
+.de-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateX(-2px);
+}
+
+/* Update DE container styles */
+.de-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.meal-plan {
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+
+.weekly-plan {
+  display: grid;
+  gap: 2rem;
+  padding: 1rem;
+  margin-bottom: 6rem;
+}
+
+.de-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.de-container::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+  border-radius: 8px;
+}
+
+.de-container::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 8px;
+  min-height: 40px;
+}
+
+.de-container::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-red);
+  cursor: pointer;
+}
+
+/* Add extra space container */
+.extra-space {
+  height: 300px;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+  background: var(--bg-light);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--primary);
+  background: rgba(199, 68, 68, 0.1);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.error-message button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-message button:hover {
+  background: var(--hover-red);
+}
+
+.meal-macros {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+/* Add these debugging styles */
+.results-container * {
+  visibility: visible !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.meal-plan,
+.weekly-plan,
+.day-plan,
+.meals {
+  margin: 10px 0;
+  padding: 10px;
+  /* Remove the border property */
+}
+
+/* DE Component Styles */
+.de-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.de-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateX(-2px);
+}
+
+/* Form Styles */
+.user-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.user-data label {
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.user-data input,
+.user-data select {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border);
+  background-color: var (--bg-light);
+  color: var(--text-light);
+}
+
+.user-data button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.user-data button:hover {
+  opacity: 0.9;
+}
+
+/* Meal Plan Styles */
+.meal-plan {
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.macros-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.weekly-plan {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.day-plan {
+  background: var(--bg-dark);
+  padding: 1.5rem;
+  border-radius: 8px;
+  min-width: 400px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+}
+
+.meals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.meal {
+  background: var(--bg-light);
+  padding: 1rem;
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+}
+
+.meal:hover {
+  transform: translateY(-2px);
+}
+
+.meal h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.meal-macros {
+  font-size: 0.9rem;
+  color: var (--text-light);
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+/* Status Messages */
+.loading-indicator,
+.error-message,
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.loading-indicator {
+  color: var(--text-light);
+  background: var(--bg-light);
+}
+
+.error-message {
+  color: var(--primary);
+  background: rgba(199, 68, 68, 0.1);
+}
+
+.error-message button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-message button:hover {
+  background: var(--hover-red);
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .results-container {
+    width: 95vw;
+    padding: 1rem;
+  }
+
+  .macros-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .weekly-plan {
+    grid-template-columns: 1fr;
+  }
+
+  .day-plan {
+    min-width: unset;
+  }
+}
