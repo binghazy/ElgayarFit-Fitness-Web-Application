@@ -60,7 +60,12 @@ I do not mind if you used it, but at least mention me then 😘
 
 ---
 
-Built with ❤️ by [binghazy](https://github.com/binghazy)
-with contributions of 
---MWG7X
---Tarto2a
+Built with ❤️ by [Binghazy](https://github.com/binghazy)
+with contributions of :
+<br>
+--> [Mwg7x](https://github.com/mwg7x)
+<br>
+--> [Tarto2a](https://github.com/tarto2a)
+<br>
+--> [Ayah](https://github.com/Ayah-hub2004)
+
