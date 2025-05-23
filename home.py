@@ -16,7 +16,6 @@ st.set_page_config(
     initial_sidebar_state='collapsed'
 )
 
-# Add CSS to completely hide sidebar
 st.markdown("""
     <style>
     /* Hide sidebar */
