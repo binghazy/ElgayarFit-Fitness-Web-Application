@@ -4,6 +4,8 @@ ElgayarFit is a personalized fitness coaching platform that combines AI-powered 
 
 ![Banner](Assets/Screen1.png)
 
+![Watch the video of this project!]([https://drive.google.com/file/d/1CcB4tP9_yi-UCeUgTEakFw4Qa7xVMjYA/view](https://drive.google.com/file/d/1CcB4tP9_yi-UCeUgTEakFw4Qa7xVMjYA/view?usp=sharing))
+
 ---
 
 ##  Features
